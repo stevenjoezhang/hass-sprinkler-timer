@@ -1,0 +1,9 @@
+{
+  "domain": "sprinkler_timer",
+  "name": "Sprinkler Timer",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://github.com/local/sprinkler_timer",
+  "iot_class": "cloud_polling",
+  "version": "0.1.0"
+}

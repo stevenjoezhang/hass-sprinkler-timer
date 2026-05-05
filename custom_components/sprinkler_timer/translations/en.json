@@ -1,0 +1,53 @@
+{
+  "title": "Sprinkler Timer",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Create sprinkler timer",
+        "description": "Each timer can bind multiple sprinkler switches and run at fixed times with one duration and repeat interval. Separate multiple start times with commas, for example 09:00, 14:00.",
+        "data": {
+          "plan_name": "Plan name",
+          "sprinkler_switches": "Sprinkler switches",
+          "api_key": "QWeather API key",
+          "api_host": "QWeather API host",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "rain_skip": "Skip when rain is expected",
+          "rain_threshold": "24-hour window rain threshold",
+          "start_times": "Daily start times",
+          "duration_minutes": "Duration per run",
+          "repeat_days": "Repeat every N days",
+          "enabled": "Enable timer"
+        }
+      }
+    },
+    "error": {
+      "invalid_input": "Invalid input"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Edit sprinkler timer",
+        "description": "Separate multiple start times with commas, for example 09:00, 14:00.",
+        "data": {
+          "plan_name": "Plan name",
+          "sprinkler_switches": "Sprinkler switches",
+          "api_key": "QWeather API key",
+          "api_host": "QWeather API host",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "rain_skip": "Skip when rain is expected",
+          "rain_threshold": "24-hour window rain threshold",
+          "start_times": "Daily start times",
+          "duration_minutes": "Duration per run",
+          "repeat_days": "Repeat every N days",
+          "enabled": "Enable timer"
+        }
+      }
+    },
+    "error": {
+      "invalid_input": "Invalid input"
+    }
+  }
+}

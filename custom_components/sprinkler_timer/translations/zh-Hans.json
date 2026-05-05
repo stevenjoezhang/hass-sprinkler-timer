@@ -1,0 +1,53 @@
+{
+  "title": "喷淋定时器",
+  "config": {
+    "step": {
+      "user": {
+        "title": "创建喷淋定时器",
+        "description": "每个定时器可以绑定多个喷淋开关，并按固定时间、持续时长和重复间隔自动执行。多个开始时间请用逗号分隔，例如 09:00, 14:00。",
+        "data": {
+          "plan_name": "计划名称",
+          "sprinkler_switches": "绑定的喷淋 switch",
+          "api_key": "和风天气 API Key",
+          "api_host": "和风天气 API Host",
+          "latitude": "纬度",
+          "longitude": "经度",
+          "rain_skip": "雨天自动跳过",
+          "rain_threshold": "24 小时窗口累计雨量阈值",
+          "start_times": "每天开始时间",
+          "duration_minutes": "每次喷淋时长",
+          "repeat_days": "每几天重复一次",
+          "enabled": "启用定时器"
+        }
+      }
+    },
+    "error": {
+      "invalid_input": "输入无效"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "修改喷淋定时器",
+        "description": "多个开始时间请用逗号分隔，例如 09:00, 14:00。",
+        "data": {
+          "plan_name": "计划名称",
+          "sprinkler_switches": "绑定的喷淋 switch",
+          "api_key": "和风天气 API Key",
+          "api_host": "和风天气 API Host",
+          "latitude": "纬度",
+          "longitude": "经度",
+          "rain_skip": "雨天自动跳过",
+          "rain_threshold": "24 小时窗口累计雨量阈值",
+          "start_times": "每天开始时间",
+          "duration_minutes": "每次喷淋时长",
+          "repeat_days": "每几天重复一次",
+          "enabled": "启用定时器"
+        }
+      }
+    },
+    "error": {
+      "invalid_input": "输入无效"
+    }
+  }
+}
