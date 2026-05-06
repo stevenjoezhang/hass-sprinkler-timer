@@ -3,7 +3,8 @@
   "name": "Sprinkler Timer",
   "codeowners": [],
   "config_flow": true,
-  "documentation": "https://github.com/local/sprinkler_timer",
+  "documentation": "https://github.com/stevenjoezhang/hass-sprinkler-timer",
+  "issue_tracker": "https://github.com/stevenjoezhang/hass-sprinkler-timer/issues",
   "iot_class": "cloud_polling",
   "version": "0.1.0"
 }
