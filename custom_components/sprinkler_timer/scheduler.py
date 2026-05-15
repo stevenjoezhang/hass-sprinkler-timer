@@ -65,6 +65,7 @@ class SprinklerTimerController:
         self._running = False
         self._next_run: datetime | None = None
         self._last_decision = "尚未执行"
+        self._forecast_warning: str | None = None
         self._last_rain_12h: float | None = None
         self._rain_window_total: float | None = None
         self._last_forecast_update: datetime | None = None
@@ -186,6 +187,7 @@ class SprinklerTimerController:
     async def _async_handle_scheduled_run(self, now: datetime) -> None:
         """Handle a scheduled watering time."""
         self._remove_next_run = None
+        self._forecast_warning = None
 
         if not self.enabled:
             self._last_decision = "已跳过：定时器已关闭"
@@ -203,10 +205,7 @@ class SprinklerTimerController:
                 await self._async_refresh_forecast()
             except QWeatherError as err:
                 _LOGGER.warning("Unable to refresh rain forecast: %s", err)
-                if not self._rain_timeline:
-                    self._last_decision = f"已跳过：无法获取降雨预报（{err}）"
-                    self.async_schedule_next_run()
-                    return
+                self._forecast_warning = f"无法获取降雨预报（{err}）"
 
             rain_window_total = self._calculate_rain_window_total(now)
             threshold = float(options.get(CONF_RAIN_THRESHOLD, DEFAULT_RAIN_THRESHOLD))
@@ -246,7 +245,7 @@ class SprinklerTimerController:
             return
 
         self._running = True
-        self._last_decision = (
+        self._last_decision = self._format_decision_message(
             f"已执行：{dt_util.as_local(now).strftime('%Y-%m-%d %H:%M')} "
             f"开始喷淋 {duration:g} 分钟"
         )
@@ -265,7 +264,7 @@ class SprinklerTimerController:
         self._remove_stop = None
         await self._async_turn_sprinklers_off()
         self._running = False
-        self._last_decision = (
+        self._last_decision = self._format_decision_message(
             f"已完成：{dt_util.as_local(now).strftime('%Y-%m-%d %H:%M')} 停止喷淋"
         )
         self.async_schedule_next_run()
@@ -301,6 +300,7 @@ class SprinklerTimerController:
         )
         forecast = await client.async_get_hourly_rain(RAIN_FORECAST_HOURS)
 
+        self._forecast_warning = None
         self._last_rain_12h = sum(forecast.values())
         current_hour = self._hour_start(now)
         for forecast_time, rain in forecast.items():
@@ -391,6 +391,12 @@ class SprinklerTimerController:
             if entity_id:
                 resolved.append(entity_id)
         return resolved
+
+    def _format_decision_message(self, message: str) -> str:
+        """Append forecast warning to visible decision text when present."""
+        if not self._forecast_warning:
+            return message
+        return f"{message}；{self._forecast_warning}，已按无雨继续喷淋"
 
     def _cancel_callbacks(self) -> None:
         """Cancel pending callbacks."""
